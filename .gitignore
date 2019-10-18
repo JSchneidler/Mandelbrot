@@ -1,0 +1,7 @@
+# CMake
+bin
+Config.h
+
+# Visual Studio
+.vs
+.vscode
