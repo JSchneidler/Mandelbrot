@@ -1,9 +1,9 @@
 #pragma once
 
 #include <wx/wx.h>
-#include "LeftPanel.h"
-#include "Canvas.h"
-#include "Mandelbrot.h"
+#include "LeftPanel.hpp"
+#include "Canvas.hpp"
+#include "mandelbrot.hpp"
 
 class RootWindow : public wxFrame
 {

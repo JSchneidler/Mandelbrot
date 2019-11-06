@@ -1,6 +1,6 @@
-#include "RootWindow.h"
-#include "App.h"
-#include "Config.h"
+#include "RootWindow.hpp"
+#include "App.hpp"
+#include "Config.hpp"
 
 const wxSize DEFAULT_SIZE = wxSize(DEFAULT_RESOLUTION + 100, DEFAULT_RESOLUTION);
 

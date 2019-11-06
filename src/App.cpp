@@ -1,5 +1,5 @@
-#include "App.h"
-#include "RootWindow.h"
+#include "App.hpp"
+#include "RootWindow.hpp"
 
 IMPLEMENT_APP(App);
 

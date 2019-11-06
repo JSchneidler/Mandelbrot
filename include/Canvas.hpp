@@ -1,7 +1,7 @@
 #pragma once
 
 #include <wx/wx.h>
-#include "Mandelbrot.h"
+#include "mandelbrot.hpp"
 
 
 class Canvas : public wxPanel

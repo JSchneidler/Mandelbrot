@@ -1,7 +1,7 @@
-#include "LeftPanel.h"
+#include "LeftPanel.hpp"
+#include "App.hpp"
+#include "RootWindow.hpp"
 #include <inttypes.h>
-#include "App.h"
-#include "RootWindow.h"
 
 LeftPanel::LeftPanel(wxPanel* parent, const uint16_t height)
 	: wxPanel(parent, -1, wxPoint(-1, -1), wxSize(100, height), wxBORDER_SUNKEN)

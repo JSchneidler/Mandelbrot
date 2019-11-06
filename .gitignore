@@ -1,7 +1,2 @@
-# CMake
-bin
-Config.h
-
-# Visual Studio
-.vs
+build
 .vscode

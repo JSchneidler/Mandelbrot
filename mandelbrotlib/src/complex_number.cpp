@@ -1,4 +1,4 @@
-#include "ComplexNumber.h"
+#include "complex_number.hpp"
 
 ComplexNumber::ComplexNumber(const double real, const double imaginary)
 	: real(real)

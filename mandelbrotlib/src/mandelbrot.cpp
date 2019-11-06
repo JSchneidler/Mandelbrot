@@ -1,4 +1,4 @@
-#include "Mandelbrot.h"
+#include "mandelbrot.hpp"
 
 Mandelbrot::Mandelbrot(const uint16_t resolution, const uint64_t c)
 	: resolution(resolution)
