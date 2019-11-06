@@ -3,6 +3,6 @@ This is a Mandelbrot set visualization. It was created during experimentation wi
 
 # Setup
 1. Install wxWidgets
-2. `mkdir bin && cd bin && cmake ..`
+2. `mkdir build && cd build && cmake ..`
 3. `make`
 4. `./Mandelbrot`
