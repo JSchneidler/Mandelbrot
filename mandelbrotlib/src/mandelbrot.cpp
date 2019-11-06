@@ -1,38 +1,24 @@
 #include "mandelbrot.hpp"
 
-Mandelbrot::Mandelbrot(const uint16_t resolution, const uint64_t c)
-	: resolution(resolution)
-	, c(c)
+namespace Mandelbrot
 {
-	execute();
-}
+	uint64_t iterations(uint64_t max_iterations, ComplexNumber& c, double threshold)
+	{
+		uint64_t iterations = 0;
 
-const uint16_t Mandelbrot::getResolution() const
-{
-	return resolution;
-}
+		ComplexNumber* z = new ComplexNumber(0, 0);
+		while (iterations < max_iterations && z->getAbsoluteValue() < threshold)
+		{
+			z->multiply(*z)->add(c);
+			++iterations;
+		}
 
-void Mandelbrot::setResolution(const uint16_t resolution)
-{
-	this->resolution = resolution;
-}
+		if (iterations == max_iterations) return 0;
+		return iterations;
+	}
 
-const uint64_t Mandelbrot::getC() const
-{
-	return c;
-}
-
-void Mandelbrot::setC(const uint64_t c)
-{
-	this->c = c;
-}
-
-void Mandelbrot::execute()
-{
-	reset();
-}
-
-void Mandelbrot::reset()
-{
-
+	uint64_t* evaluate(double threshold, uint64_t max_iterations, ComplexNumber& center, double scale, uint64_t resolution)
+	{
+		return 0;
+	}
 }

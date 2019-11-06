@@ -60,3 +60,10 @@ TEST(ComplexNumberTest, multiply)
     ASSERT_EQ(c1.getReal(), -24.0);
     ASSERT_EQ(c1.getImaginary(), 15.0);
 }
+
+TEST(ComplexNumberTest, absoluteValue)
+{
+    ComplexNumber c1 {-3, 12.3};
+
+    ASSERT_FLOAT_EQ(c1.getAbsoluteValue(), 12.660568707605515);
+}

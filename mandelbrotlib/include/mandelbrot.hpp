@@ -1,22 +1,10 @@
 #pragma once
 
 #include <stdint.h>
+#include "complex_number.hpp"
 
-class Mandelbrot
+namespace Mandelbrot
 {
-public:
-	Mandelbrot(const uint16_t resolution, const uint64_t c);
-
-	const uint16_t getResolution() const;
-	void setResolution(const uint16_t resolution);
-	const uint64_t getC() const;
-	void setC(const uint64_t c);
-	void execute();
-
-private:
-	uint16_t resolution;
-	uint64_t c;
-
-	void reset();
-};
-
+	uint64_t iterations(const uint64_t max_iterations, const ComplexNumber& c, const double threshold);
+	uint64_t* evaluate(const double threshold, const uint64_t max_iterations, const ComplexNumber& center, const double scale, const uint64_t resolution);
+}

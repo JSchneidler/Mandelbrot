@@ -1,4 +1,5 @@
 #include "complex_number.hpp"
+#include <cmath>
 
 ComplexNumber::ComplexNumber(const double real, const double imaginary)
 	: real(real)
@@ -17,7 +18,7 @@ const double ComplexNumber::getImaginary() const
 
 const double ComplexNumber::getAbsoluteValue() const
 {
-	return real;
+	return sqrt(pow(real, 2) + pow(imaginary, 2));
 }
 
 ComplexNumber* ComplexNumber::add(ComplexNumber const& other)

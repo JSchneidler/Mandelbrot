@@ -13,7 +13,7 @@ public:
 	void setParameters(const uint16_t resolution, const uint64_t c);
 
 private:
-	Mandelbrot* mandelbrot;
+	// Mandelbrot* mandelbrot;
 	wxPanel* parent;
 	LeftPanel* left_panel;
 	Canvas* canvas;
