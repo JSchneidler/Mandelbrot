@@ -20,5 +20,5 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
                  EXCLUDE_FROM_ALL)
 
 # Link against gtest or gtest_main as needed.
-add_executable(MandelbrotTest test_main.cpp)
+add_executable(MandelbrotTest test_main.cpp complex_number.cpp mandelbrot.cpp)
 target_link_libraries(MandelbrotTest gtest_main MandelbrotLib)
