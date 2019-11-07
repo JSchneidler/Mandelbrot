@@ -44,6 +44,7 @@ ComplexNumber ComplexNumber::operator-= (ComplexNumber const other)
 ComplexNumber ComplexNumber::operator* (ComplexNumber const other)
 {
 	// (x + yi) * (u + vi) = (xu - yv) + (xv + yu)i
+	// See https://www2.clarku.edu/faculty/djoyce/complex/mult.html
 	double xu = this->getReal() * other.getReal();
 	double yv = this->getImaginary() * other.getImaginary();
 	double xv = this->getReal() * other.getImaginary();
