@@ -21,41 +21,37 @@ const double ComplexNumber::getAbsoluteValue() const
 	return sqrt(pow(real, 2) + pow(imaginary, 2));
 }
 
-ComplexNumber* ComplexNumber::add(ComplexNumber const& other)
+ComplexNumber ComplexNumber::operator+ (ComplexNumber const other)
 {
-	real += other.getReal();
-	imaginary += other.getImaginary();
-
-	return this;
+	return ComplexNumber(this->getReal() + other.getReal(), this->getImaginary() + other.getImaginary());
 }
 
-ComplexNumber* ComplexNumber::subtract(ComplexNumber const& other)
+ComplexNumber ComplexNumber::operator+= (ComplexNumber const other)
 {
-	real -= other.getReal();
-	imaginary -= other.getImaginary();
-
-	return this;
+	*this = *this + other;
 }
 
-ComplexNumber* ComplexNumber::multiply(ComplexNumber const& other)
+ComplexNumber ComplexNumber::operator- (ComplexNumber const other)
 {
-	real *= other.getReal();
-	imaginary *= other.getImaginary();
-
-	return this;
+	return ComplexNumber(this->getReal() - other.getReal(), this->getImaginary() - other.getImaginary());
 }
 
-ComplexNumber* ComplexNumber::operator+ (ComplexNumber const& other)
+ComplexNumber ComplexNumber::operator-= (ComplexNumber const other)
 {
-	return new ComplexNumber(this->getReal() + other.getReal(), this->getImaginary() + other.getImaginary());
+	*this = *this - other;
 }
 
-ComplexNumber* ComplexNumber::operator- (ComplexNumber const& other)
+ComplexNumber ComplexNumber::operator* (ComplexNumber const other)
 {
-	return new ComplexNumber(this->getReal() - other.getReal(), this->getImaginary() - other.getImaginary());
+	// (x + yi) * (u + vi) = (xu - yv) + (xv + yu)i
+	double xu = this->getReal() * other.getReal();
+	double yv = this->getImaginary() * other.getImaginary();
+	double xv = this->getReal() * other.getImaginary();
+	double yu = this->getImaginary() * other.getReal();
+	return ComplexNumber(xu - yv, xv + yu);
 }
 
-ComplexNumber* ComplexNumber::operator* (ComplexNumber const& other)
+ComplexNumber ComplexNumber::operator*= (ComplexNumber const other)
 {
-	return new ComplexNumber(this->getReal() * other.getReal(), this->getImaginary() * other.getImaginary());
+	*this = *this * other;
 }
