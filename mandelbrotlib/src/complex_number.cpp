@@ -29,6 +29,7 @@ ComplexNumber ComplexNumber::operator+ (ComplexNumber const other)
 ComplexNumber ComplexNumber::operator+= (ComplexNumber const other)
 {
 	*this = *this + other;
+	return *this;
 }
 
 ComplexNumber ComplexNumber::operator- (ComplexNumber const other)
@@ -39,6 +40,7 @@ ComplexNumber ComplexNumber::operator- (ComplexNumber const other)
 ComplexNumber ComplexNumber::operator-= (ComplexNumber const other)
 {
 	*this = *this - other;
+	return *this;
 }
 
 ComplexNumber ComplexNumber::operator* (ComplexNumber const other)
@@ -55,4 +57,5 @@ ComplexNumber ComplexNumber::operator* (ComplexNumber const other)
 ComplexNumber ComplexNumber::operator*= (ComplexNumber const other)
 {
 	*this = *this * other;
+	return *this;
 }

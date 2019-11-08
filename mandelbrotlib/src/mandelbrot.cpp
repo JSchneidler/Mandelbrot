@@ -19,8 +19,8 @@ namespace Mandelbrot
 		return iterations;
 	}
 
-	uint64_t* evaluate(double threshold, uint64_t max_iterations, ComplexNumber center, double scale, uint64_t resolution)
+	t_mandelbrot_grid evaluate(double threshold, uint64_t max_iterations, ComplexNumber center, double scale, uint64_t resolution)
 	{
-		return 0;
+		return t_mandelbrot_grid{};
 	}
 }
