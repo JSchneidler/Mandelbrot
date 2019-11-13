@@ -3,7 +3,7 @@
 class ComplexNumber
 {
 public:
-	ComplexNumber(const double real, const double imaginary = 0);
+	ComplexNumber(const double real = 0, const double imaginary = 0);
 
 	const double getReal() const;
 	const double getImaginary() const;

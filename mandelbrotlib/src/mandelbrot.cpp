@@ -21,6 +21,13 @@ namespace Mandelbrot
 
 	t_mandelbrot_grid evaluate(double threshold, uint64_t max_iterations, ComplexNumber center, double scale, uint64_t resolution)
 	{
-		return t_mandelbrot_grid{};
+		t_mandelbrot_grid grid = t_mandelbrot_grid(resolution, std::vector<uint64_t>(resolution, 0));
+		// Incremental difference between neighboring cells
+		double increment = scale / resolution;
+
+		// Get index of center cell
+		uint64_t center = (resolution / 2) - 1;
+
+		return grid;
 	}
 }
