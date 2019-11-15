@@ -17,17 +17,17 @@ RootWindow::RootWindow()
 	parent->SetSizer(hbox);
 	this->Center();
 
-	canvas->setGrid(Mandelbrot::evaluate(
+	canvas->setRGBData(Mandelbrot::getRGBData(Mandelbrot::evaluate(
 		DEFAULT_THRESHOLD,
 		DEFAULT_MAX_ITERATIONS,
 		DEFAULT_CENTER,
 		DEFAULT_SCALE,
 		DEFAULT_RESOLUTION
-	));
+	)));
 }
 
 void RootWindow::setParameters(const double threshold, const uint64_t max_iterations, const ComplexNumber center, const double scale, const uint64_t resolution)
 {
 	t_mandelbrot_grid grid = Mandelbrot::evaluate(threshold, max_iterations, center, scale, resolution);
-	canvas->setGrid(grid);
+	canvas->setRGBData(Mandelbrot::getRGBData(grid));
 }
