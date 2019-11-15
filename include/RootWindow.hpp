@@ -1,16 +1,16 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <complex>
 #include "LeftPanel.hpp"
 #include "Canvas.hpp"
-#include "complex_number.hpp"
 
 class RootWindow : public wxFrame
 {
 public:
 	RootWindow();
 
-	void setParameters(const double threshold, const uint64_t max_iterations, const ComplexNumber center, const double scale, const uint64_t resolution);
+	void setParameters(const double threshold, const uint64_t max_iterations, const std::complex<double> center, const double scale, const uint64_t resolution);
 
 private:
 	wxPanel* parent;

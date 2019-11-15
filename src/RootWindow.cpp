@@ -2,13 +2,13 @@
 #include "App.hpp"
 #include "Config.hpp"
 
-const wxSize DEFAULT_SIZE = wxSize(720 + LEFT_PANEL_WIDTH, 720);
+const wxSize DEFAULT_SIZE = wxSize(DEFAULT_GRID_WIDTH + LEFT_PANEL_WIDTH, DEFAULT_GRID_WIDTH);
 
 RootWindow::RootWindow()
 	: wxFrame(NULL, wxID_ANY, wxString::Format(wxT("Mandelbrot v%d.%d"), VERSION_MAJOR, VERSION_MINOR), wxDefaultPosition, DEFAULT_SIZE, (wxDEFAULT_FRAME_STYLE & ~wxRESIZE_BORDER))
 	, parent(new wxPanel(this, wxID_ANY))
-	, left_panel(new LeftPanel(parent, 720))
-	, canvas(new Canvas(parent, 720))
+	, left_panel(new LeftPanel(parent, DEFAULT_GRID_WIDTH))
+	, canvas(new Canvas(parent, DEFAULT_GRID_WIDTH))
 {
 	wxBoxSizer* hbox = new wxBoxSizer(wxHORIZONTAL);
 	hbox->Add(left_panel, 0, wxALL | wxEXPAND);
@@ -26,8 +26,11 @@ RootWindow::RootWindow()
 	)));
 }
 
-void RootWindow::setParameters(const double threshold, const uint64_t max_iterations, const ComplexNumber center, const double scale, const uint64_t resolution)
+void RootWindow::setParameters(const double threshold, const uint64_t max_iterations, const std::complex<double> center, const double scale, const uint64_t resolution)
 {
-	t_mandelbrot_grid grid = Mandelbrot::evaluate(threshold, max_iterations, center, scale, resolution);
-	canvas->setRGBData(Mandelbrot::getRGBData(grid));
+	const uint64_t grid_width = resolution * 2 + 1;
+
+	SetSize(wxSize(grid_width + LEFT_PANEL_WIDTH, grid_width));
+	canvas->setResolution(grid_width);
+	canvas->setRGBData(Mandelbrot::getRGBData(Mandelbrot::evaluate(threshold, max_iterations, center, scale, resolution)));
 }

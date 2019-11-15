@@ -13,15 +13,14 @@ Color getColor(uint64_t iterations);
 
 namespace Mandelbrot
 {
-	uint64_t iterations(uint64_t max_iterations, ComplexNumber c, double threshold)
+	uint64_t iterations(uint64_t max_iterations, std::complex<double> c, double threshold)
 	{
 		uint64_t iterations = 0;
 
-		ComplexNumber z {0, 0};
-		while (iterations < max_iterations && z.getAbsoluteValue() < threshold)
+		std::complex<double> z {};
+		while (iterations < max_iterations && std::abs(z) < threshold)
 		{
-			z *= z;
-			z += c;
+			z = z*z + c;
 			++iterations;
 		}
 
@@ -29,7 +28,7 @@ namespace Mandelbrot
 		return iterations;
 	}
 
-	t_mandelbrot_grid evaluate(double threshold, uint64_t max_iterations, ComplexNumber center, double scale, uint64_t resolution)
+	t_mandelbrot_grid evaluate(double threshold, uint64_t max_iterations, std::complex<double> center, double scale, uint64_t resolution)
 	{
 		uint64_t grid_size = (resolution * 2) + 1;
 		t_mandelbrot_grid grid {grid_size, std::vector<uint64_t>(grid_size, 0)};
@@ -40,11 +39,11 @@ namespace Mandelbrot
 		double imaginary, real;
 		for (uint64_t i = 0; i < grid_size; i++) // Rows
 		{
-			imaginary = center.getImaginary() + ((resolution - i) * increment);
+			imaginary = center.imag() + ((resolution - i) * increment);
 			for (uint64_t j = 0; j < grid_size; j++) // Columns
 			{
-				real = center.getReal() - ((resolution - j) * increment);
-				grid[i][j] = iterations(max_iterations, ComplexNumber(real, imaginary), threshold);
+				real = center.real() - ((resolution - j) * increment);
+				grid[i][j] = iterations(max_iterations, std::complex<double>(real, imaginary), threshold);
 			}
 		}
 
@@ -77,8 +76,8 @@ Color getColor(uint64_t iterations)
 
 	switch (iterations)
 	{
-		case 1:
-			color = Color{ 0, 0, 0 };
+		case 0:
+			color = Color{ 255, 0, 0 };
 			break;
 		case 2:
 			color = Color{ 0, 255, 0 };
@@ -89,8 +88,12 @@ Color getColor(uint64_t iterations)
 		case 4:
 			color = Color{ 255, 165, 0 };
 			break;
+		case 5:
+			color = Color{ 255, 100, 0 };
+			break;
+		case 1:
 		default:
-			color = Color{ 255, 0, 0 };
+			color = Color{ 0, 0, 0 };
 			break;
 	}
 

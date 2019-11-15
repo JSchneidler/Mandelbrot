@@ -1,10 +1,11 @@
 #pragma once
 
 #include <wx/wx.h>
-#include "complex_number.hpp"
+#include <complex>
 
-const uint64_t DEFAULT_RESOLUTION = 720;
-const ComplexNumber DEFAULT_CENTER { 5, 3 };
+const uint64_t DEFAULT_RESOLUTION = 480;
+const uint64_t DEFAULT_GRID_WIDTH = DEFAULT_RESOLUTION * 2 + 1;
+const std::complex<double> DEFAULT_CENTER { 5, 3 };
 const double DEFAULT_SCALE = 5;
 const double DEFAULT_THRESHOLD = 2;
 const uint64_t DEFAULT_MAX_ITERATIONS = 5;

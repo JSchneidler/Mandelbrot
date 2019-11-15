@@ -1,20 +1,20 @@
 #include <gtest/gtest.h>
+#include <complex>
 #include "mandelbrot.hpp"
-#include "complex_number.hpp"
 
 TEST(MandelbrotTest, iterations)
 {
-    ASSERT_EQ(Mandelbrot::iterations(5, ComplexNumber{-1}, 2), 0);
-    ASSERT_EQ(Mandelbrot::iterations(5, ComplexNumber{-0.5}, 2), 0);
-    ASSERT_EQ(Mandelbrot::iterations(5, ComplexNumber{0}, 2), 0);
-    ASSERT_EQ(Mandelbrot::iterations(5, ComplexNumber{1}, 2), 2);
-    ASSERT_EQ(Mandelbrot::iterations(5, ComplexNumber{-1, 1}, 2), 3);
+    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{-1}, 2), 0);
+    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{-0.5}, 2), 0);
+    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{0}, 2), 0);
+    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{1}, 2), 2);
+    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{-1, 1}, 2), 3);
 }
 
 TEST(MandelbrotTest, evaluate)
 {
     const uint64_t resolution = 5;
-	t_mandelbrot_grid grid = Mandelbrot::evaluate(2, 5, ComplexNumber{5, 3}, 10, resolution);
+	t_mandelbrot_grid grid = Mandelbrot::evaluate(2, 5, std::complex<double>{5, 3}, 10, resolution);
 
 	// Check size of grid
 	ASSERT_EQ(grid.size(), resolution * 2 + 1);
