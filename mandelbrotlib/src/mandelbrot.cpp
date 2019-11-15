@@ -78,19 +78,19 @@ Color getColor(uint64_t iterations)
 	switch (iterations)
 	{
 		case 1:
-			color = Color{ 255, 0, 0 };
+			color = Color{ 0, 0, 0 };
 			break;
 		case 2:
-			color = Color{ 255, 165, 0 };
+			color = Color{ 0, 255, 0 };
 			break;
 		case 3:
 			color = Color{ 255, 255, 0 };
 			break;
 		case 4:
-			color = Color{ 0, 255, 0 };
+			color = Color{ 255, 165, 0 };
 			break;
 		default:
-			color = Color{ 0, 0, 0 };
+			color = Color{ 255, 0, 0 };
 			break;
 	}
 
