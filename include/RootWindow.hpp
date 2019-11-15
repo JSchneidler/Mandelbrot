@@ -3,21 +3,18 @@
 #include <wx/wx.h>
 #include "LeftPanel.hpp"
 #include "Canvas.hpp"
-#include "mandelbrot.hpp"
+#include "complex_number.hpp"
 
 class RootWindow : public wxFrame
 {
 public:
 	RootWindow();
 
-	void setParameters(const uint16_t resolution, const uint64_t c);
+	void setParameters(const double threshold, const uint64_t max_iterations, const ComplexNumber center, const double scale, const uint64_t resolution);
 
 private:
-	// Mandelbrot* mandelbrot;
 	wxPanel* parent;
 	LeftPanel* left_panel;
 	Canvas* canvas;
-
-	void redraw();
 };
 

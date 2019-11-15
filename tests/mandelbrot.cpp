@@ -2,8 +2,6 @@
 #include "mandelbrot.hpp"
 #include "complex_number.hpp"
 
-void printGrid (t_mandelbrot_grid grid);
-
 TEST(MandelbrotTest, iterations)
 {
     ASSERT_EQ(Mandelbrot::iterations(5, ComplexNumber{-1}, 2), 0);
@@ -19,22 +17,12 @@ TEST(MandelbrotTest, evaluate)
 	t_mandelbrot_grid grid = Mandelbrot::evaluate(2, 5, ComplexNumber{5, 3}, 10, resolution);
 
 	// Check size of grid
-	ASSERT_EQ(grid.size(), resolution);
-	ASSERT_EQ(grid.at(0).size(), resolution);
+	ASSERT_EQ(grid.size(), resolution * 2 + 1);
+	ASSERT_EQ(grid[0].size(), resolution * 2 + 1);
 
-    printGrid(grid);
 	// Check grid values
-	// ASSERT_EQ(grid.at(0), 5);
-}
+	t_mandelbrot_grid expected_grid{ resolution * 2 + 1, std::vector<uint64_t>(resolution * 2 + 1, 1) };
+	grid[3][0] = 1;
 
-void printGrid (t_mandelbrot_grid grid)
-{
-    for (uint64_t i = 0; i < grid.size(); i++)
-    {
-        for (uint64_t j = 0; j < grid.at(i).size(); j++)
-        {
-            std::cout << grid.at(i).at(j) << " ";
-        }
-        std::cout << std::endl;
-    }
+	ASSERT_EQ(grid, expected_grid);
 }

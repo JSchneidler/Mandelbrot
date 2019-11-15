@@ -22,28 +22,21 @@ namespace Mandelbrot
 
 	t_mandelbrot_grid evaluate(double threshold, uint64_t max_iterations, ComplexNumber center, double scale, uint64_t resolution)
 	{
-		t_mandelbrot_grid grid = t_mandelbrot_grid(resolution, std::vector<uint64_t>(resolution, 0));
+		uint64_t grid_size = (resolution * 2) + 1;
+		t_mandelbrot_grid grid {grid_size, std::vector<uint64_t>(grid_size, 0)};
+
 		// Incremental difference between neighboring cells
 		double increment = scale / resolution;
 
-		// Get index of center cell
-		uint64_t center_cell = ceil(resolution / 2.0) - 1;
-
-		std::cout << resolution << std::endl;
-		std::cout << increment << std::endl;
-		std::cout << center_cell << std::endl;
-
 		double imaginary, real;
-		for (uint64_t i = 0; i < resolution; i++)
+		for (uint64_t i = 0; i < grid_size; i++) // Rows
 		{
-			imaginary = center.getImaginary() + ((center_cell - i) * increment);
-			for (uint64_t j = 0; j < resolution; j++)
+			imaginary = center.getImaginary() + ((resolution - i) * increment);
+			for (uint64_t j = 0; j < grid_size; j++) // Columns
 			{
-				real = center.getReal() - ((center_cell - j) * increment);
-				grid.at(i).at(j) = iterations(max_iterations, ComplexNumber(real, imaginary), threshold);
-				printf("(%.2f, %.2fi) ", real, imaginary);
+				real = center.getReal() - ((resolution - j) * increment);
+				grid[i][j] = iterations(max_iterations, ComplexNumber(real, imaginary), threshold);
 			}
-			std::cout << std::endl;
 		}
 
 		return grid;

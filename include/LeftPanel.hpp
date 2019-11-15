@@ -11,10 +11,25 @@ public:
 
 private:
 	wxPanel* parent;
+
 	wxStaticText* resolution_label;
 	wxTextCtrl* resolution_input;
-	wxStaticText* c_label;
-	wxTextCtrl* c_input;
+
+	wxStaticText* real_label;
+	wxTextCtrl* real_input;
+
+	wxStaticText* imaginary_label;
+	wxTextCtrl* imaginary_input;
+
+	wxStaticText* scale_label;
+	wxTextCtrl* scale_input;
+
+	wxStaticText* threshold_label;
+	wxTextCtrl* threshold_input;
+
+	wxStaticText* max_iterations_label;
+	wxTextCtrl* max_iterations_input;
+
 	wxButton* set_button;
 
 	void OnSetParameters(wxCommandEvent& event);
