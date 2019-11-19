@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <cstdint>
 
 const int ID_SET = 100;
 

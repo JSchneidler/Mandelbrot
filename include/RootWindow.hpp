@@ -1,9 +1,11 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <cstdint>
 #include <complex>
 #include "LeftPanel.hpp"
 #include "Canvas.hpp"
+#include "mandelbrot.hpp"
 
 class RootWindow : public wxFrame
 {
@@ -16,5 +18,6 @@ private:
 	wxPanel* parent;
 	LeftPanel* left_panel;
 	Canvas* canvas;
+	Mandelbrot mandelbrot;
 };
 

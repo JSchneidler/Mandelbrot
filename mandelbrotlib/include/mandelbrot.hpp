@@ -1,15 +1,28 @@
 #pragma once
 
 #include <complex>
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 
 typedef std::vector<std::vector<uint64_t>> t_mandelbrot_grid;
-typedef std::vector<unsigned char> t_rgb_grid;
 
-namespace Mandelbrot
+struct Color
 {
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+};
+
+class Mandelbrot
+{
+public:
+	void evaluate(const uint64_t resolution, const double threshold, const uint64_t max_iterations);
+	std::vector<unsigned char> getRGBData();
+
+private:
+	t_mandelbrot_grid grid;
+	uint64_t max_iterations;
+
 	uint64_t iterations(const std::complex<double> point, const double threshold, const uint64_t max_iterations);
-	t_mandelbrot_grid evaluate(const uint64_t resolution, const double threshold, const uint64_t max_iterations);
-	t_rgb_grid getRGBData(t_mandelbrot_grid grid);
-}
+	Color getColor(uint64_t iterations);
+};

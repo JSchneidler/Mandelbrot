@@ -12,7 +12,7 @@ Canvas::Canvas(wxPanel* parent, const uint64_t resolution)
 	Connect(wxEVT_PAINT, wxPaintEventHandler(Canvas::OnPaint));
 }
 
-void Canvas::drawGrid(t_rgb_grid grid, uint64_t resolution)
+void Canvas::drawRGBData(std::vector<unsigned char> grid, uint64_t resolution)
 {
 	wxImage image = wxImage(resolution, resolution, grid.data(), true);
 	bitmap = wxBitmap(image);
