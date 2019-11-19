@@ -13,37 +13,36 @@ Color getColor(uint64_t iterations);
 
 namespace Mandelbrot
 {
-	uint64_t iterations(uint64_t max_iterations, std::complex<double> c, double threshold)
+	uint64_t iterations(std::complex<double> point, double threshold, uint64_t max_iterations)
 	{
 		uint64_t iterations = 0;
 
 		std::complex<double> z {};
 		while (iterations < max_iterations && std::abs(z) < threshold)
 		{
-			z = z*z + c;
+			z = z*z + point;
 			++iterations;
 		}
 
-		if (iterations == max_iterations) return 0;
 		return iterations;
 	}
 
-	t_mandelbrot_grid evaluate(double threshold, uint64_t max_iterations, std::complex<double> center, double scale, uint64_t resolution)
+	t_mandelbrot_grid evaluate(uint64_t resolution, double threshold, uint64_t max_iterations)
 	{
-		uint64_t grid_size = (resolution * 2) + 1;
-		t_mandelbrot_grid grid {grid_size, std::vector<uint64_t>(grid_size, 0)};
+		t_mandelbrot_grid grid {resolution, std::vector<uint64_t>(resolution, 0)};
 
 		// Incremental difference between neighboring cells
-		double increment = scale / resolution;
+		double increment = 1.0 / resolution;
 
 		double imaginary, real;
-		for (uint64_t i = 0; i < grid_size; i++) // Rows
+		for (uint64_t i = 0; i < resolution; i++) // Rows
 		{
-			imaginary = center.imag() + ((resolution - i) * increment);
-			for (uint64_t j = 0; j < grid_size; j++) // Columns
+			imaginary = (i * increment) - 0.5;
+			for (uint64_t j = 0; j < resolution; j++) // Columns
 			{
-				real = center.real() - ((resolution - j) * increment);
-				grid[i][j] = iterations(max_iterations, std::complex<double>(real, imaginary), threshold);
+				real = (j * increment) - 1.5;
+				std::complex<double> point{ real, imaginary };
+				grid[j][i] = iterations(point, threshold, max_iterations);
 			}
 		}
 
@@ -59,7 +58,7 @@ namespace Mandelbrot
 		{
 			for (uint64_t j = 0; j < grid_size; j++) // Columns
 			{
-				Color color = getColor(grid[j][i]);
+				Color color = getColor(grid[i][j]);
 				rgb.push_back(color.r);
 				rgb.push_back(color.g);
 				rgb.push_back(color.b);
@@ -72,30 +71,15 @@ namespace Mandelbrot
 
 Color getColor(uint64_t iterations)
 {
-	Color color;
-
-	switch (iterations)
-	{
-		case 0:
-			color = Color{ 255, 0, 0 };
-			break;
-		case 2:
-			color = Color{ 0, 255, 0 };
-			break;
-		case 3:
-			color = Color{ 255, 255, 0 };
-			break;
-		case 4:
-			color = Color{ 255, 165, 0 };
-			break;
-		case 5:
-			color = Color{ 255, 100, 0 };
-			break;
-		case 1:
-		default:
-			color = Color{ 0, 0, 0 };
-			break;
-	}
+	/*
+	unsigned char red = 255 * (iterations / 25);
+	Color color{ red, 0, 0 };
 
 	return color;
+	*/
+
+	Color red{ 255, 0, 0 };
+	Color black{ 0, 0, 0 };
+	if (iterations <= 24) return red;
+	else return black;
 }

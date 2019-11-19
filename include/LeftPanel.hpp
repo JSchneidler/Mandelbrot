@@ -15,15 +15,6 @@ private:
 	wxStaticText* resolution_label;
 	wxTextCtrl* resolution_input;
 
-	wxStaticText* real_label;
-	wxTextCtrl* real_input;
-
-	wxStaticText* imaginary_label;
-	wxTextCtrl* imaginary_input;
-
-	wxStaticText* scale_label;
-	wxTextCtrl* scale_input;
-
 	wxStaticText* threshold_label;
 	wxTextCtrl* threshold_input;
 

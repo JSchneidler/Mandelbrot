@@ -10,7 +10,7 @@ class RootWindow : public wxFrame
 public:
 	RootWindow();
 
-	void setParameters(const double threshold, const uint64_t max_iterations, const std::complex<double> center, const double scale, const uint64_t resolution);
+	void setParameters(const uint64_t resolution, const double threshold, const uint64_t max_iterations);
 
 private:
 	wxPanel* parent;

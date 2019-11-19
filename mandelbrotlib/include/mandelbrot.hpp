@@ -9,7 +9,7 @@ typedef std::vector<unsigned char> t_rgb_grid;
 
 namespace Mandelbrot
 {
-	uint64_t iterations(const uint64_t max_iterations, const std::complex<double> c, const double threshold);
-	t_mandelbrot_grid evaluate(const double threshold, const uint64_t max_iterations, const std::complex<double> center, const double scale, const uint64_t resolution);
+	uint64_t iterations(const std::complex<double> point, const double threshold, const uint64_t max_iterations);
+	t_mandelbrot_grid evaluate(const uint64_t resolution, const double threshold, const uint64_t max_iterations);
 	t_rgb_grid getRGBData(t_mandelbrot_grid grid);
 }
