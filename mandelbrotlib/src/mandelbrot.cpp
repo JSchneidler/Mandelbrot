@@ -2,6 +2,12 @@
 #include <iostream>
 #include <cmath>
 
+
+t_mandelbrot_grid Mandelbrot::getGrid()
+{
+	return grid;
+}
+
 void Mandelbrot::evaluate(uint64_t resolution, double threshold, uint64_t max_iterations)
 {
 	grid = t_mandelbrot_grid{ resolution, std::vector<uint64_t>(resolution, 0) };

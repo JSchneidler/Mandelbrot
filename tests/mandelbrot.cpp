@@ -1,28 +1,40 @@
 #include <gtest/gtest.h>
-#include <complex>
+#include <vector>
 #include "mandelbrot.hpp"
-
-TEST(MandelbrotTest, iterations)
-{
-    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{-1}, 2), 0);
-    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{-0.5}, 2), 0);
-    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{0}, 2), 0);
-    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{1}, 2), 2);
-    ASSERT_EQ(Mandelbrot::iterations(5, std::complex<double>{-1, 1}, 2), 3);
-}
 
 TEST(MandelbrotTest, evaluate)
 {
     const uint64_t resolution = 5;
-	t_mandelbrot_grid grid = Mandelbrot::evaluate(2, 5, std::complex<double>{5, 3}, 10, resolution);
+	Mandelbrot mandelbrot{};
 
-	// Check size of grid
-	ASSERT_EQ(grid.size(), resolution * 2 + 1);
-	ASSERT_EQ(grid[0].size(), resolution * 2 + 1);
+	mandelbrot.evaluate(resolution, 2, 10);
 
 	// Check grid values
-	t_mandelbrot_grid expected_grid{ resolution * 2 + 1, std::vector<uint64_t>(resolution * 2 + 1, 1) };
-	grid[3][0] = 1;
+	t_mandelbrot_grid expected_grid{ resolution, std::vector<uint64_t>(resolution, 0) };
+	expected_grid[0] = {3, 5, 7, 7, 5};
+	expected_grid[1] = {4, 7, 10, 10, 7};
+	expected_grid[2] = {5, 10, 10, 10, 10};
+	expected_grid[3] = {5, 10, 10, 10, 10};
+	expected_grid[4] = {8, 10, 10, 10, 10};
 
-	ASSERT_EQ(grid, expected_grid);
+	ASSERT_EQ(mandelbrot.getGrid(), expected_grid);
+}
+
+TEST(MandelbrotTest, getRGBData)
+{
+    const uint64_t resolution = 5;
+	Mandelbrot mandelbrot{};
+
+	mandelbrot.evaluate(resolution, 2, 10);
+
+	// Check RGB values
+	std::vector<unsigned char> expected_rgb_data{
+		0, 76, 0, 0, 127, 0, 0, 178, 0, 0, 178, 0, 0, 127, 0,
+		0, 102, 0, 0, 178, 0, 0, 0, 0, 0, 0, 0, 0, 178, 0,
+		0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 204, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	};
+
+	ASSERT_EQ(mandelbrot.getRGBData(), expected_rgb_data);
 }
