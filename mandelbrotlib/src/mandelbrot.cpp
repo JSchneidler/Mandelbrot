@@ -71,15 +71,7 @@ namespace Mandelbrot
 
 Color getColor(uint64_t iterations)
 {
-	/*
-	unsigned char red = 255 * (iterations / 25);
-	Color color{ red, 0, 0 };
-
+	Color color{ 0, 0, 0 };
+	if (iterations != 25) color.r = 255 * (iterations / 25.0);
 	return color;
-	*/
-
-	Color red{ 255, 0, 0 };
-	Color black{ 0, 0, 0 };
-	if (iterations <= 24) return red;
-	else return black;
 }
