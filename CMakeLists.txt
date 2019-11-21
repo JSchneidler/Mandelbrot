@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${CMAKE_PROJECT_NAME})
 
 # Dependencies
-set(wxWidgets_CONFIGURATION mswud)
+set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base REQUIRED)
 include(${wxWidgets_USE_FILE})
 
