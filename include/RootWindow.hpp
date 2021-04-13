@@ -18,6 +18,5 @@ private:
 	wxPanel* parent;
 	LeftPanel* left_panel;
 	Canvas* canvas;
-	Mandelbrot mandelbrot;
 };
 

@@ -1,6 +1,14 @@
-add_library(MandelbrotLib
-    include/mandelbrot.hpp
-    src/mandelbrot.cpp
-)
+cmake_minimum_required(VERSION 3.11...3.20)
 
-target_include_directories(MandelbrotLib PUBLIC include)
+# Main
+add_subdirectory(src)
+
+# Tests
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  include(CTest)
+
+  if (BUILD_TESTING)
+    add_subdirectory(test)
+  endif()
+endif()
+

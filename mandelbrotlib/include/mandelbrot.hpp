@@ -13,17 +13,8 @@ struct Color
 	unsigned char b;
 };
 
-class Mandelbrot
+namespace Mandelbrot
 {
-public:
-	void evaluate(const uint64_t resolution, const double threshold, const uint64_t max_iterations);
-	std::vector<unsigned char> getRGBData();
-	t_mandelbrot_grid getGrid();
-
-private:
-	t_mandelbrot_grid grid;
-	uint64_t max_iterations;
-
-	uint64_t iterations(const std::complex<double> point, const double threshold, const uint64_t max_iterations);
-	Color getColor(uint64_t iterations);
+	t_mandelbrot_grid evaluate(const uint64_t resolution, const double threshold, const uint64_t max_iterations);
+	std::vector<unsigned char> getRGBData(const t_mandelbrot_grid grid, const uint64_t max_iterations);
 };

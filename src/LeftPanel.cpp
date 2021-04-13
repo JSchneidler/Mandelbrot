@@ -16,7 +16,7 @@ LeftPanel::LeftPanel(wxPanel* parent, const uint16_t height)
 	Connect(ID_SET, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(LeftPanel::OnSetParameters));
 }
 
-void LeftPanel::OnSetParameters(wxCommandEvent& event)
+void LeftPanel::OnSetParameters(wxCommandEvent&)
 {
 	uint64_t resolution = wxAtoi(resolution_input->GetValue());
 	double threshold = wxAtof(threshold_input->GetValue());

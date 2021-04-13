@@ -13,7 +13,6 @@ public:
 	void OnPaint(wxPaintEvent& event);
 
 private:
-	wxPanel* parent;
-	wxBitmap bitmap;
+	wxImage image;
 };
 

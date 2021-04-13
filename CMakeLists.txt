@@ -1,8 +1,4 @@
-cmake_minimum_required(VERSION 3.1...3.15)
-
-if(${CMAKE_VERSION} VERSION_LESS 3.12)
-	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
-endif()
+cmake_minimum_required(VERSION 3.11...3.20)
 
 project(
 	Mandelbrot
@@ -11,8 +7,7 @@ project(
 	LANGUAGES CXX
 )
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+# Set Visual Studio default startup project
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${CMAKE_PROJECT_NAME})
 
 # Dependencies
@@ -20,38 +15,18 @@ set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base REQUIRED)
 include(${wxWidgets_USE_FILE})
 
+set(GCC_WARNING_FLAGS -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Werror -pedantic)
+set(MSVC_WARNING_FLAGS /permissive /W4 /w14640 /WX)
+
 # Main
-configure_file(
-	"${PROJECT_SOURCE_DIR}/Config.hpp.in"
-	"${PROJECT_BINARY_DIR}/Config.hpp"
-)
-
-add_executable(Mandelbrot
-	${PROJECT_SOURCE_DIR}/include/App.hpp
-	${PROJECT_SOURCE_DIR}/include/RootWindow.hpp
-	${PROJECT_SOURCE_DIR}/include/LeftPanel.hpp
-	${PROJECT_SOURCE_DIR}/include/Canvas.hpp
-	${PROJECT_SOURCE_DIR}/src/App.cpp
-	${PROJECT_SOURCE_DIR}/src/RootWindow.cpp
-	${PROJECT_SOURCE_DIR}/src/LeftPanel.cpp
-	${PROJECT_SOURCE_DIR}/src/Canvas.cpp
-)
-
-if(WIN32)
-	target_link_options(Mandelbrot PRIVATE "/SUBSYSTEM:WINDOWS")
-endif()
-
-target_include_directories(Mandelbrot
-	PUBLIC
-		"${PROJECT_BINARY_DIR}"
-		"${PROJECT_SOURCE_DIR}/include"
-)
-
-# Math lib
 add_subdirectory(mandelbrotlib)
-
-# Link libraries
-target_link_libraries(Mandelbrot PRIVATE MandelbrotLib ${wxWidgets_LIBRARIES})
+add_subdirectory(src)
 
 # Tests
-add_subdirectory(tests)
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  include(CTest)
+
+  if (BUILD_TESTING)
+    add_subdirectory(test)
+  endif()
+endif()
