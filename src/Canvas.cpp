@@ -22,10 +22,11 @@ void Canvas::OnPaint(wxPaintEvent&)
 	wxPaintDC dc(this);
 	wxGraphicsContext *gc = wxGraphicsContext::Create(dc);
 
-	if (gc)
+	if (gc && image.IsOk())
 	{
 		wxGraphicsBitmap bitmap = gc->CreateBitmapFromImage(image);
 		gc->DrawBitmap(bitmap, 0, 0, image.GetWidth(), image.GetHeight());
-		delete gc;
 	}
+
+	delete gc;
 }

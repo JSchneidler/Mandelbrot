@@ -2,6 +2,12 @@
 #include "App.hpp"
 #include "Config.hpp"
 
+wxDEFINE_EVENT(wxEVT_gridUpdate, wxThreadEvent);
+wxBEGIN_EVENT_TABLE(RootWindow, wxFrame)
+	EVT_THREAD(wxEVT_gridUpdate, RootWindow::onGridUpdate)
+	EVT_CLOSE(RootWindow::onClose)
+wxEND_EVENT_TABLE()
+
 const wxSize DEFAULT_SIZE = wxSize(DEFAULT_RESOLUTION + LEFT_PANEL_WIDTH, DEFAULT_RESOLUTION);
 
 RootWindow::RootWindow()
@@ -17,14 +23,47 @@ RootWindow::RootWindow()
 	parent->SetSizer(hbox);
 	this->Center();
 
-	t_mandelbrot_grid grid = Mandelbrot::evaluate(DEFAULT_RESOLUTION,	DEFAULT_THRESHOLD, DEFAULT_MAX_ITERATIONS);
-	canvas->drawRGBData(Mandelbrot::getRGBData(grid, DEFAULT_MAX_ITERATIONS), DEFAULT_RESOLUTION);
+	setParameters(DEFAULT_RESOLUTION,	DEFAULT_THRESHOLD, DEFAULT_MAX_ITERATIONS);
 }
 
-void RootWindow::setParameters(const uint64_t resolution, const double threshold, const uint64_t max_iterations)
+void RootWindow::setParameters(const uint64_t new_resolution, const double new_threshold, const uint64_t new_max_iterations)
 {
-	t_mandelbrot_grid grid = Mandelbrot::evaluate(resolution,	threshold, max_iterations);
+	resolution = new_resolution;
+	threshold = new_threshold;
+	max_iterations = new_max_iterations;
 
+	if (CreateThread(wxTHREAD_JOINABLE) != wxTHREAD_NO_ERROR)
+	{
+		wxLogError("Could not create worker thread!");
+		return;
+	}
+
+	if (GetThread()->Run() != wxTHREAD_NO_ERROR)
+	{
+		wxLogError("Could not run worker thread!");
+		return;
+	}
+}
+
+void RootWindow::onGridUpdate(wxThreadEvent&)
+{
+	wxCriticalSectionLocker lock(gridCS);
 	SetSize(wxSize(resolution + LEFT_PANEL_WIDTH, resolution));
 	canvas->drawRGBData(Mandelbrot::getRGBData(grid, max_iterations), resolution);
+}
+
+void RootWindow::onClose(wxCloseEvent&)
+{
+	if (GetThread() && GetThread()->IsRunning())
+		GetThread()->Wait();
+
+	Destroy();
+}
+
+wxThread::ExitCode RootWindow::Entry()
+{
+	wxCriticalSectionLocker lock(gridCS);
+	grid = Mandelbrot::evaluate(resolution,	threshold, max_iterations);
+	wxQueueEvent(this, new wxThreadEvent(wxEVT_THREAD, wxEVT_gridUpdate));
+	return (wxThread::ExitCode) 0;
 }
